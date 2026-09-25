@@ -17,6 +17,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          # main as it is now, not the push that queued this run: a run queued behind another
+          # would otherwise start from before that run's index commit, and its push be refused.
+          ref: main
           fetch-depth: 0 # each project's last commit is its `updated`
       - run: python3 .github/community.py index
         env:

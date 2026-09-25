@@ -1,8 +1,9 @@
 """The repo's two jobs, run by its workflows.
 
-    python .github/community.py check <pr-checkout> <login>
+    python .github/community.py check <pr-checkout> <login> <user id>
         A pull request's projects, against the base branch checked out here. Reads the pull
-        request's files and runs `sp pack --check` on them; runs nothing of theirs.
+        request's files and runs `sp pack --check` on them; runs nothing of theirs. PR,
+        CHANGED_FILES and GITHUB_REPOSITORY in the environment name the pull request.
 
     python .github/community.py index
         Rewrites index.json from projects/, after a push to main.
@@ -10,26 +11,19 @@
 Standard library only, beside `sp` and `gh` on PATH.
 """
 
-import filecmp, json, re, subprocess, sys
+import json, os, subprocess, sys
+from datetime import datetime
 from pathlib import Path
 
-THUMBNAIL = (1600, 1000)  # what `sp pack -o` draws
+THUMBNAIL = (2400, 1260)  # what `sp pack -o` draws: an Open Graph image, twice over
 PHONE = (478, 980)        # the artboard a board with no size in layout.json is
+THUMBNAIL_CAP = 5 << 20   # the examples' 2400 x 1260 PNGs are 1 MB at most
+PULL_FILES_CAP = 3000     # the most files GitHub lists for a pull request
 
 
 def projects(root: Path) -> dict:
     folder = root / "projects"
     return {d.name: d for d in folder.iterdir()} if folder.is_dir() else {}
-
-
-def same(a: Path, b: Path) -> bool:
-    """Whether two project folders hold the same files, byte for byte."""
-    files = lambda d: sorted(p.relative_to(d) for p in d.rglob("*") if not p.is_dir())
-    if a.is_symlink() or b.is_symlink() or not (a.is_dir() and b.is_dir()):
-        return False
-    if files(a) != files(b):
-        return False
-    return all(filecmp.cmp(a / f, b / f, shallow=False) for f in files(a))
 
 
 def read(path: Path) -> dict:
@@ -43,18 +37,51 @@ def png_size(path: Path):
     return int.from_bytes(head[16:20], "big"), int.from_bytes(head[20:24], "big")
 
 
-def check(pr: Path, opener: str) -> list:
+def gh(*args: str):
+    """`gh api`'s output, or None for a 404. Anything else fails the job."""
+    run = subprocess.run(["gh", "api", *args], capture_output=True, text=True)
+    if run.returncode and "HTTP 404" in run.stderr:
+        return None
+    if run.returncode:
+        raise SystemExit(f"gh api {' '.join(args)}: {run.stderr.strip()}")
+    return run.stdout
+
+
+def user(path: str):
+    found = gh(path)
+    return found and json.loads(found)
+
+
+def user_id(login: str):
+    found = user(f"users/{login}")
+    return found and found["id"]
+
+
+def check(pr: Path, opener: str, opener_id: int, changed: list) -> list:
+    """`changed` is the pull request's files as GitHub lists them, against the merge base: a
+    branch behind main does not undo what main has gained since."""
     problems = []
     me = opener.lower()
     base, head = projects(Path(".")), projects(pr)
-    for name in sorted(base.keys() | head.keys()):
-        if name in base and name in head and same(base[name], head[name]):
-            continue
+    names = set()
+    for f in changed:
+        parts = f.split("/")
+        if parts[0] == "projects" and len(parts) > 2:
+            names.add(parts[1])
+        else:
+            problems.append(f"{f}: a pull request changes only projects/<id>/")
+    # By numeric id, which the index keeps: a renamed author's old login can be anyone's now.
+    listed = {e["id"]: e["author"]["id"] for e in read(Path("index.json"))["projects"]}
+
+    def author_id(name):
+        return listed.get(name) or user_id(read(base[name] / "project.json")["author"])
+
+    for name in sorted(names):
         where = f"projects/{name}"
         if name not in head:
-            old = read(base[name] / "project.json")
-            if old.get("author", "").lower() != me:
-                problems.append(f"{where}: only its author, {old.get('author')}, can remove it")
+            if author_id(name) != opener_id:
+                old = read(base[name] / "project.json")["author"]
+                problems.append(f"{where}: only its author, {old}, can remove it")
             continue
         folder = head[name]
         if folder.is_symlink() or not folder.is_dir():
@@ -62,49 +89,50 @@ def check(pr: Path, opener: str) -> list:
             continue
         run = subprocess.run(["sp", "pack", "--check", str(folder)], capture_output=True, text=True)
         if run.returncode:
-            problems += [f"{where}: {line}" for line in (run.stdout + run.stderr).splitlines()
-                         if line.startswith(("problem", "error"))]
+            said = [line for line in (run.stdout + run.stderr).splitlines()
+                    if line.startswith(("problem", "error"))]
+            # A traceback or a usage error says neither, and still fails.
+            problems += [f"{where}: {line}" for line in said or
+                         [f"sp pack --check exited {run.returncode}: {run.stderr.strip()[-500:]}"]]
             continue
         # The folder is what `sp pack -o` wrote and nothing else: all it leaves out is the thumbnail.
         extra = [line.split(None, 2)[2] for line in run.stdout.splitlines()
                  if line.startswith("left out")]
-        if extra != ["thumbnail.png"]:
-            problems += [f"{where}/{e}: is not part of the package" for e in extra
-                         if e != "thumbnail.png"]
+        problems += [f"{where}/{e}: is not part of the package" for e in extra
+                     if e != "thumbnail.png"]
         thumb = folder / "thumbnail.png"
-        if thumb.is_symlink() or not thumb.is_file() or png_size(thumb) != THUMBNAIL:
+        if (thumb.is_symlink() or not thumb.is_file() or thumb.stat().st_size > THUMBNAIL_CAP
+                or png_size(thumb) != THUMBNAIL):
             problems.append(f"{where}/thumbnail.png: is not the {THUMBNAIL[0]} x {THUMBNAIL[1]} "
                             "PNG `sp pack -o` draws")
         pj = read(folder / "project.json")
         if pj["id"] != name:
             problems.append(f"{where}: the folder is not named for the project's id, {pj['id']}")
+        for login in [pj["author"], *pj.get("contributors", [])]:
+            if user_id(login) is None:
+                problems.append(f"{where}: {login} is not a GitHub user")
         author = pj["author"].lower()
         people = {c.lower() for c in pj.get("contributors", [])}
         if name not in base:
             if author != me:
                 problems.append(f"{where}: its author is {pj['author']}, and only they can add it")
             continue
-        old = read(base[name] / "project.json")
-        if author != old["author"].lower() and me != old["author"].lower():
-            problems.append(f"{where}: only {old['author']} can change its author")
-        if me not in people | {author}:
+        if author_id(name) == opener_id:
+            continue  # its author, who can change anything, handing it over included
+        old = read(base[name] / "project.json")["author"]
+        if author != old.lower():
+            problems.append(f"{where}: only {old} can change its author")
+        if me not in people:
             problems.append(f"{where}: add {opener} to its contributors in project.json")
     return problems
 
 
-def gh(path: str) -> dict:
-    return json.loads(subprocess.run(["gh", "api", path], capture_output=True, text=True,
-                                     check=True).stdout)
-
-
 def person(login: str, known: dict) -> dict:
     """{login, id}. A login can be renamed and the numeric id cannot, so a person the index
-    already has is looked up by id, which corrects the login it shows."""
-    if login.lower() in known:
-        user = gh(f"user/{known[login.lower()]}")
-    else:
-        user = gh(f"users/{login}")
-    return {"login": user["login"], "id": user["id"]}
+    already has is looked up by id, which corrects the login it shows. An account deleted since
+    keeps the login it had and no id."""
+    found = user(f"user/{known[login.lower()]}" if login.lower() in known else f"users/{login}")
+    return {"login": found["login"], "id": found["id"]} if found else {"login": login, "id": None}
 
 
 def device(folder: Path) -> str:
@@ -131,7 +159,8 @@ def index():
     known = {}
     for entry in old:
         for p in [entry["author"], *entry["contributors"]]:
-            known[p["login"].lower()] = p["id"]
+            if p["id"]:
+                known[p["login"].lower()] = p["id"]
     out = []
     for name, folder in sorted(projects(Path(".")).items()):
         pj = read(folder / "project.json")
@@ -149,13 +178,18 @@ def index():
             "icon": icons[0].as_posix() if icons else None,
             "updated": updated,
         })
-    out.sort(key=lambda e: e["updated"], reverse=True)
+    out.sort(key=lambda e: datetime.fromisoformat(e["updated"]), reverse=True)
     path.write_text(json.dumps({"format": 1, "projects": out}, indent=2) + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__":
     if sys.argv[1] == "check":
-        found = check(Path(sys.argv[2]), sys.argv[3])
+        if int(os.environ["CHANGED_FILES"]) > PULL_FILES_CAP:
+            sys.exit(f"::error::over the {PULL_FILES_CAP} files GitHub lists; split it up")
+        # A rename lists its old path too, which is a change to the folder it left.
+        changed = gh("--paginate", f"repos/{os.environ['GITHUB_REPOSITORY']}/pulls/"
+                     f"{os.environ['PR']}/files", "--jq", ".[] | .filename, .previous_filename // empty")
+        found = check(Path(sys.argv[2]), sys.argv[3], int(sys.argv[4]), changed.split())
         for p in found:
             print(f"::error::{p}")
         print(f"{len(found)} problem(s)" if found else "ok")
