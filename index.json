@@ -1,4 +1,19 @@
 {
   "format": 1,
-  "projects": []
+  "projects": [
+    {
+      "id": "19146dc5-50a2-43a4-9fd7-9e21f7d74845",
+      "name": "Apple Settings",
+      "author": {
+        "login": "Jing-yilin",
+        "id": 69336584
+      },
+      "contributors": [],
+      "boards": 9,
+      "device": "iphone",
+      "thumbnail": "projects/19146dc5-50a2-43a4-9fd7-9e21f7d74845/thumbnail.png",
+      "icon": "projects/19146dc5-50a2-43a4-9fd7-9e21f7d74845/canvases/apple-settings/icon.png",
+      "updated": "2026-09-25T14:03:38-04:00"
+    }
+  ]
 }
