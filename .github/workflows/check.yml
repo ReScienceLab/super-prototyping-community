@@ -1,0 +1,31 @@
+name: Check
+
+# pull_request_target, so the workflow and community.py are the base branch's: a pull request
+# cannot change what checks it. Its files are only read, never run, and the token can only read.
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.sha }}
+          path: pr
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v6
+      # The `sp` that checks a package is the app's. SP_REF, a repository variable, pins another
+      # branch or tag of it; without one it is main's.
+      - run: uv tool install "super-prototyping-tools @ git+https://github.com/ReScienceLab/super-prototyping@${SP_REF}#subdirectory=tools"
+        env:
+          SP_REF: ${{ vars.SP_REF || 'main' }}
+      - run: python3 .github/community.py check pr "$OPENER"
+        env:
+          OPENER: ${{ github.event.pull_request.user.login }}

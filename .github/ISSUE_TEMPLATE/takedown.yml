@@ -1,0 +1,27 @@
+name: Takedown request
+description: Ask for a project, or part of one, to be removed.
+title: "Takedown: "
+labels: [takedown]
+body:
+  - type: input
+    id: project
+    attributes:
+      label: Project
+      description: The link to it on superproto.dev/community, or its folder here.
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: What should be removed, and why
+      description: For a copyright or trademark claim, say what you own and where it appears.
+    validations:
+      required: true
+  - type: input
+    id: contact
+    attributes:
+      label: How to reach you
+      description: If not by this issue. You can also email yilin.jing@rescience.com instead of filing this.
+  - type: markdown
+    attributes:
+      value: We answer within 7 days.
