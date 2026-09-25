@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: read
+  pull-requests: read # its list of files
 
 jobs:
   check:
@@ -26,6 +27,10 @@ jobs:
       - run: uv tool install "super-prototyping-tools @ git+https://github.com/ReScienceLab/super-prototyping@${SP_REF}#subdirectory=tools"
         env:
           SP_REF: ${{ vars.SP_REF || 'main' }}
-      - run: python3 .github/community.py check pr "$OPENER"
+      - run: python3 .github/community.py check pr "$OPENER" "$OPENER_ID"
         env:
           OPENER: ${{ github.event.pull_request.user.login }}
+          OPENER_ID: ${{ github.event.pull_request.user.id }}
+          PR: ${{ github.event.pull_request.number }}
+          CHANGED_FILES: ${{ github.event.pull_request.changed_files }}
+          GH_TOKEN: ${{ github.token }}

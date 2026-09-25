@@ -15,9 +15,9 @@ Ask your agent to share the project to the community. The `sp-canvas` skill know
 which are these:
 
 ```sh
-sp pack "My project" --check                      # fix what it reports
+sp pack "My project" --check                      # fix what it reports, but a missing id or author
 gh repo fork ReScienceLab/super-prototyping-community --clone
-sp pack "My project" -o /tmp/package              # prints the project's id
+sp pack "My project" -o /tmp/package              # fills those in, prints the id
 mv /tmp/package super-prototyping-community/projects/<id>
 cd super-prototyping-community
 git switch -c <id> && git add projects && git commit -m "Add My project"
@@ -29,7 +29,7 @@ To update a project, pack it again and replace its folder the same way.
 CI checks every pull request:
 
 - Each project it changes passes `sp pack --check`, holds only what `sp pack -o` writes, and is
-  in the folder named for its `id`.
+  in the folder named for its `id`. Its `thumbnail.png` is a 2400 × 1260 PNG of 5 MB at most.
 - A new project's `author`, in `project.json`, is whoever opened the pull request.
 - A change is opened by the `author` or by one of the `contributors`. Anyone else adds their
   own GitHub login to `contributors` in the same pull request.
