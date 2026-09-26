@@ -2,6 +2,20 @@
   "format": 1,
   "projects": [
     {
+      "id": "157c1beb-f17f-4b0d-acdd-f26a6ccf93cc",
+      "name": "Apple Calendar",
+      "author": {
+        "login": "Jing-yilin",
+        "id": 69336584
+      },
+      "contributors": [],
+      "boards": 23,
+      "device": "iphone",
+      "thumbnail": "projects/157c1beb-f17f-4b0d-acdd-f26a6ccf93cc/thumbnail.png",
+      "icon": "projects/157c1beb-f17f-4b0d-acdd-f26a6ccf93cc/canvases/apple-calendar/icon.png",
+      "updated": "2026-09-26T03:07:24-04:00"
+    },
+    {
       "id": "19146dc5-50a2-43a4-9fd7-9e21f7d74845",
       "name": "Apple Settings",
       "author": {
@@ -13,7 +27,273 @@
       "device": "iphone",
       "thumbnail": "projects/19146dc5-50a2-43a4-9fd7-9e21f7d74845/thumbnail.png",
       "icon": "projects/19146dc5-50a2-43a4-9fd7-9e21f7d74845/canvases/apple-settings/icon.png",
-      "updated": "2026-09-25T14:03:38-04:00"
+      "updated": "2026-09-26T03:07:24-04:00"
+    },
+    {
+      "id": "1c9ee17b-cedf-4505-b927-a1b2c8f23e8e",
+      "name": "Apple Photos",
+      "author": {
+        "login": "Jing-yilin",
+        "id": 69336584
+      },
+      "contributors": [],
+      "boards": 4,
+      "device": "iphone",
+      "thumbnail": "projects/1c9ee17b-cedf-4505-b927-a1b2c8f23e8e/thumbnail.png",
+      "icon": "projects/1c9ee17b-cedf-4505-b927-a1b2c8f23e8e/canvases/apple-photos/icon.png",
+      "updated": "2026-09-26T03:07:24-04:00"
+    },
+    {
+      "id": "2aabfc73-0f78-4f19-b36c-82b95c12c48d",
+      "name": "X iOS",
+      "author": {
+        "login": "Jing-yilin",
+        "id": 69336584
+      },
+      "contributors": [],
+      "boards": 22,
+      "device": "iphone",
+      "thumbnail": "projects/2aabfc73-0f78-4f19-b36c-82b95c12c48d/thumbnail.png",
+      "icon": "projects/2aabfc73-0f78-4f19-b36c-82b95c12c48d/canvases/x-ios/icon.png",
+      "updated": "2026-09-26T03:07:24-04:00"
+    },
+    {
+      "id": "2bd6d004-edf6-4752-ac00-bec3b94fc21f",
+      "name": "TikTok",
+      "author": {
+        "login": "Jing-yilin",
+        "id": 69336584
+      },
+      "contributors": [],
+      "boards": 22,
+      "device": "iphone",
+      "thumbnail": "projects/2bd6d004-edf6-4752-ac00-bec3b94fc21f/thumbnail.png",
+      "icon": "projects/2bd6d004-edf6-4752-ac00-bec3b94fc21f/canvases/tiktok-ios/icon.png",
+      "updated": "2026-09-26T03:07:24-04:00"
+    },
+    {
+      "id": "3d010975-7211-4552-8370-78f04a7fcf83",
+      "name": "SnapAction iOS",
+      "author": {
+        "login": "Jing-yilin",
+        "id": 69336584
+      },
+      "contributors": [],
+      "boards": 13,
+      "device": "iphone",
+      "thumbnail": "projects/3d010975-7211-4552-8370-78f04a7fcf83/thumbnail.png",
+      "icon": "projects/3d010975-7211-4552-8370-78f04a7fcf83/canvases/snapaction-ios/icon.png",
+      "updated": "2026-09-26T03:07:24-04:00"
+    },
+    {
+      "id": "4a4554bb-1d8a-451a-9470-402023d1b1d2",
+      "name": "Claude iOS",
+      "author": {
+        "login": "Jing-yilin",
+        "id": 69336584
+      },
+      "contributors": [],
+      "boards": 18,
+      "device": "iphone",
+      "thumbnail": "projects/4a4554bb-1d8a-451a-9470-402023d1b1d2/thumbnail.png",
+      "icon": "projects/4a4554bb-1d8a-451a-9470-402023d1b1d2/canvases/claude-ios/icon.png",
+      "updated": "2026-09-26T03:07:24-04:00"
+    },
+    {
+      "id": "4ed969cf-9650-4edf-a24e-bf9544113ab3",
+      "name": "Notion iOS",
+      "author": {
+        "login": "Jing-yilin",
+        "id": 69336584
+      },
+      "contributors": [],
+      "boards": 19,
+      "device": "iphone",
+      "thumbnail": "projects/4ed969cf-9650-4edf-a24e-bf9544113ab3/thumbnail.png",
+      "icon": "projects/4ed969cf-9650-4edf-a24e-bf9544113ab3/canvases/notion-ios/icon.png",
+      "updated": "2026-09-26T03:07:24-04:00"
+    },
+    {
+      "id": "63bcb818-4025-4f93-90de-fa9fd71bc126",
+      "name": "Duolingo",
+      "author": {
+        "login": "Jing-yilin",
+        "id": 69336584
+      },
+      "contributors": [],
+      "boards": 13,
+      "device": "iphone",
+      "thumbnail": "projects/63bcb818-4025-4f93-90de-fa9fd71bc126/thumbnail.png",
+      "icon": "projects/63bcb818-4025-4f93-90de-fa9fd71bc126/canvases/duolingo-ios/icon.png",
+      "updated": "2026-09-26T03:07:24-04:00"
+    },
+    {
+      "id": "6e9a9a5b-5c7e-4dac-af42-ced5ae88394f",
+      "name": "App Store",
+      "author": {
+        "login": "Jing-yilin",
+        "id": 69336584
+      },
+      "contributors": [],
+      "boards": 15,
+      "device": "iphone",
+      "thumbnail": "projects/6e9a9a5b-5c7e-4dac-af42-ced5ae88394f/thumbnail.png",
+      "icon": "projects/6e9a9a5b-5c7e-4dac-af42-ced5ae88394f/canvases/apple-app-store/icon.png",
+      "updated": "2026-09-26T03:07:24-04:00"
+    },
+    {
+      "id": "71073aa4-ce79-483f-9a4b-8c26282190c3",
+      "name": "Instagram",
+      "author": {
+        "login": "Jing-yilin",
+        "id": 69336584
+      },
+      "contributors": [],
+      "boards": 26,
+      "device": "iphone",
+      "thumbnail": "projects/71073aa4-ce79-483f-9a4b-8c26282190c3/thumbnail.png",
+      "icon": "projects/71073aa4-ce79-483f-9a4b-8c26282190c3/canvases/instagram-ios/icon.png",
+      "updated": "2026-09-26T03:07:24-04:00"
+    },
+    {
+      "id": "73b9bbae-0e6b-411d-90d5-c1a04a8c074b",
+      "name": "Raycast iOS",
+      "author": {
+        "login": "Jing-yilin",
+        "id": 69336584
+      },
+      "contributors": [],
+      "boards": 13,
+      "device": "iphone",
+      "thumbnail": "projects/73b9bbae-0e6b-411d-90d5-c1a04a8c074b/thumbnail.png",
+      "icon": "projects/73b9bbae-0e6b-411d-90d5-c1a04a8c074b/canvases/raycast-ios/icon.png",
+      "updated": "2026-09-26T03:07:24-04:00"
+    },
+    {
+      "id": "7baec1bc-e156-4d3d-97ed-9eada3bc2971",
+      "name": "Luma iOS",
+      "author": {
+        "login": "Jing-yilin",
+        "id": 69336584
+      },
+      "contributors": [],
+      "boards": 19,
+      "device": "iphone",
+      "thumbnail": "projects/7baec1bc-e156-4d3d-97ed-9eada3bc2971/thumbnail.png",
+      "icon": "projects/7baec1bc-e156-4d3d-97ed-9eada3bc2971/canvases/luma-ios/icon.png",
+      "updated": "2026-09-26T03:07:24-04:00"
+    },
+    {
+      "id": "89a0e775-54d3-4fd6-87e1-befeb8cfd993",
+      "name": "Perplexity iOS",
+      "author": {
+        "login": "Jing-yilin",
+        "id": 69336584
+      },
+      "contributors": [],
+      "boards": 18,
+      "device": "iphone",
+      "thumbnail": "projects/89a0e775-54d3-4fd6-87e1-befeb8cfd993/thumbnail.png",
+      "icon": "projects/89a0e775-54d3-4fd6-87e1-befeb8cfd993/canvases/perplexity-ios/icon.png",
+      "updated": "2026-09-26T03:07:24-04:00"
+    },
+    {
+      "id": "9d2fa5d9-9285-4800-afb6-42ae186cd9d0",
+      "name": "Apple Home & Lock Screen",
+      "author": {
+        "login": "Jing-yilin",
+        "id": 69336584
+      },
+      "contributors": [],
+      "boards": 9,
+      "device": "iphone",
+      "thumbnail": "projects/9d2fa5d9-9285-4800-afb6-42ae186cd9d0/thumbnail.png",
+      "icon": "projects/9d2fa5d9-9285-4800-afb6-42ae186cd9d0/canvases/apple-home-lock/icon.png",
+      "updated": "2026-09-26T03:07:24-04:00"
+    },
+    {
+      "id": "9e5315d3-33ef-40aa-985a-bd5fa66eb378",
+      "name": "ChatGPT iOS",
+      "author": {
+        "login": "Jing-yilin",
+        "id": 69336584
+      },
+      "contributors": [],
+      "boards": 29,
+      "device": "iphone",
+      "thumbnail": "projects/9e5315d3-33ef-40aa-985a-bd5fa66eb378/thumbnail.png",
+      "icon": "projects/9e5315d3-33ef-40aa-985a-bd5fa66eb378/canvases/chatgpt-ios/icon.png",
+      "updated": "2026-09-26T03:07:24-04:00"
+    },
+    {
+      "id": "bf02f911-1ce1-486a-8431-9f95fba882f6",
+      "name": "Substack iOS",
+      "author": {
+        "login": "Jing-yilin",
+        "id": 69336584
+      },
+      "contributors": [],
+      "boards": 10,
+      "device": "iphone",
+      "thumbnail": "projects/bf02f911-1ce1-486a-8431-9f95fba882f6/thumbnail.png",
+      "icon": "projects/bf02f911-1ce1-486a-8431-9f95fba882f6/canvases/substack-ios/icon.png",
+      "updated": "2026-09-26T03:07:24-04:00"
+    },
+    {
+      "id": "c1c44038-13e5-442f-80dc-d114252ec7df",
+      "name": "Grok iOS",
+      "author": {
+        "login": "Jing-yilin",
+        "id": 69336584
+      },
+      "contributors": [],
+      "boards": 26,
+      "device": "iphone",
+      "thumbnail": "projects/c1c44038-13e5-442f-80dc-d114252ec7df/thumbnail.png",
+      "icon": "projects/c1c44038-13e5-442f-80dc-d114252ec7df/canvases/grok-ios/icon.png",
+      "updated": "2026-09-26T03:07:24-04:00"
+    },
+    {
+      "id": "c457b6c6-e3c2-4c08-9275-865bf2f11b2e",
+      "name": "Apple Icons",
+      "author": {
+        "login": "Jing-yilin",
+        "id": 69336584
+      },
+      "contributors": [],
+      "boards": 2,
+      "device": "iphone",
+      "thumbnail": "projects/c457b6c6-e3c2-4c08-9275-865bf2f11b2e/thumbnail.png",
+      "icon": "projects/c457b6c6-e3c2-4c08-9275-865bf2f11b2e/canvases/apple-icons/icon.png",
+      "updated": "2026-09-26T03:07:24-04:00"
+    },
+    {
+      "id": "c5780fa4-c3a6-4ed7-84af-5981ce2148bb",
+      "name": "Apple Wallet",
+      "author": {
+        "login": "Jing-yilin",
+        "id": 69336584
+      },
+      "contributors": [],
+      "boards": 15,
+      "device": "iphone",
+      "thumbnail": "projects/c5780fa4-c3a6-4ed7-84af-5981ce2148bb/thumbnail.png",
+      "icon": "projects/c5780fa4-c3a6-4ed7-84af-5981ce2148bb/canvases/apple-wallet/icon.png",
+      "updated": "2026-09-26T03:07:24-04:00"
+    },
+    {
+      "id": "d9021861-db8e-4f0f-8476-f55e6695c773",
+      "name": "Spotify iOS",
+      "author": {
+        "login": "Jing-yilin",
+        "id": 69336584
+      },
+      "contributors": [],
+      "boards": 9,
+      "device": "iphone",
+      "thumbnail": "projects/d9021861-db8e-4f0f-8476-f55e6695c773/thumbnail.png",
+      "icon": "projects/d9021861-db8e-4f0f-8476-f55e6695c773/canvases/spotify-ios/icon.png",
+      "updated": "2026-09-26T03:07:24-04:00"
     }
   ]
 }
