@@ -1,0 +1,146 @@
+{
+  "name": "(example) Luma iOS",
+  "rows": [
+    {
+      "title": "Foundations",
+      "files": [
+        {
+          "file": "00-design-tokens",
+          "label": "Design tokens"
+        },
+        {
+          "file": "00b-evidence",
+          "label": "Evidence 1/2"
+        },
+        {
+          "file": "00c-evidence",
+          "label": "Evidence 2/2"
+        },
+        {
+          "file": "00d-process",
+          "label": "How it was made"
+        },
+        {
+          "file": "00e-pipeline",
+          "label": "Files &amp; results"
+        },
+        {
+          "file": "00f-evidence-home",
+          "label": "Evidence: home colour"
+        },
+        {
+          "file": "00g-evidence-home",
+          "label": "Evidence: home type"
+        }
+      ]
+    },
+    {
+      "title": "Luma iOS replica screens",
+      "numbered": true,
+      "files": [
+        {
+          "file": "01-guest-top",
+          "label": "Guest / top"
+        },
+        {
+          "file": "02-guest-mid",
+          "label": "Guest / location"
+        },
+        {
+          "file": "03-guest-about",
+          "label": "Guest / about"
+        },
+        {
+          "file": "04-host-top",
+          "label": "Host / top"
+        },
+        {
+          "file": "05-host-stats",
+          "label": "Host / guest stats"
+        },
+        {
+          "file": "06-host-manage",
+          "label": "Host / manage event"
+        },
+        {
+          "file": "07-invited-top",
+          "label": "Invited / top"
+        },
+        {
+          "file": "08-invited-about",
+          "label": "Invited / about"
+        },
+        {
+          "file": "09-home-empty",
+          "label": "Home / empty"
+        },
+        {
+          "file": "10-home-events",
+          "label": "Home / events"
+        },
+        {
+          "file": "11-home-nearby",
+          "label": "Home / nearby"
+        },
+        {
+          "file": "12-home-later",
+          "label": "Home / later"
+        }
+      ]
+    },
+    {
+      "title": "Source of truth: captures",
+      "numbered": true,
+      "files": [
+        {
+          "file": "ref-01-guest-top",
+          "label": "Guest / top"
+        },
+        {
+          "file": "ref-02-guest-mid",
+          "label": "Guest / location"
+        },
+        {
+          "file": "ref-03-guest-about",
+          "label": "Guest / about"
+        },
+        {
+          "file": "ref-04-host-top",
+          "label": "Host / top"
+        },
+        {
+          "file": "ref-05-host-stats",
+          "label": "Host / stats"
+        },
+        {
+          "file": "ref-06-host-manage",
+          "label": "Host / manage"
+        },
+        {
+          "file": "ref-07-invited-top",
+          "label": "Invited / top"
+        },
+        {
+          "file": "ref-08-invited-about",
+          "label": "Invited / about"
+        },
+        {
+          "file": "ref-09-home-empty",
+          "label": "Home / empty"
+        },
+        {
+          "file": "ref-10-home-events",
+          "label": "Home / events"
+        },
+        {
+          "file": "ref-11-home-nearby",
+          "label": "Home / nearby"
+        },
+        {
+          "file": "ref-12-home-later",
+          "label": "Home / later"
+        }
+      ]
+    }
+  ]
+}
