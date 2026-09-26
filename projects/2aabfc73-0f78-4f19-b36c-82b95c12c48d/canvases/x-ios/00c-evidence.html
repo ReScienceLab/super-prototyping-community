@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>X iOS - Evidence 2/5</title>
+<style>
+:root{
+  /* Font */
+  --x-font:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue",Helvetica,Arial,sans-serif;
+
+  /* Surface */
+  --x-ground:#FFFFFF;
+  --x-field:#EFF3F4;
+  --x-spaces:#7856FE;
+  --x-spaces-2:#6748D9;
+  --x-wash:#E6D8FF;
+  --x-banner:#E9F5FC;
+  --x-veil:rgba(0,0,0,.47);
+  --x-chip:#ECE8FF;
+  --x-chip-card:rgba(255,255,255,.30);
+  --x-pill-off:#88898D;
+  --x-disc-1:rgba(0,0,0,.75);
+  --x-disc-7:rgba(0,0,0,.57);
+  --x-scrim:rgba(0,0,0,.28);
+  --x-backdrop:#000000;
+  --x-track-on:#01BA7B;
+  --x-track-off:#E9E9E9;
+  --x-nav:linear-gradient(96deg,#FDFCFF 0%,#EFE8FF 38%,#EAE0FF 62%,#EFE7FF 100%);
+  --x-nav-2:linear-gradient(180deg,#E7DDFE 0%,#ECE3FF 100%);
+
+  /* Line */
+  --x-hairline:#D2D4D6;
+  --x-hairline-2:#C6C6C6;
+  --x-border:#D0D8DC;
+  --x-ring:#BAC9D0;
+
+  /* Ink */
+  --x-ink:#0F1419;
+  --x-ink-2:#536471;
+  --x-accent:#1D9BF0;
+  --x-inv:#FFFFFF;
+  --x-ink-off:#C6C7C9;
+  --x-save-off:#C5C5C5;
+  --x-chip-ink:#291465;
+
+  /* Radius */
+  --x-r-phone:52px;
+  --x-r-pill:26px;
+  --x-r-field:17px;
+  --x-r-search:19.5px;
+  --x-r-card:16px;
+  --x-r-play:16.5px;
+  --x-r-chip:4px;
+  --x-r-sheet:12px;
+  --x-r-modal:36px;
+  --x-r-tile:20px;
+  --x-r-peek:10px;
+
+  /* Metrics */
+  --x-w:393px;
+  --x-h:852px;
+  --x-status:54px;
+  --x-dim:.31;
+
+  /* Type */
+  --x-tr-text:-0.035em;
+  --x-t-time:590 17px/22px var(--x-font);
+  --x-t-title:800 26px/34px var(--x-font);
+  --x-t-space:800 25.5px/31px var(--x-font);
+  --x-t-name:800 22px/27px var(--x-font);
+  --x-t-cal:800 21.65px/28px var(--x-font);
+  --x-t-space-2:800 20.2px/23.67px var(--x-font);
+  --x-t-card:700 19px/24px var(--x-font);
+  --x-t-field:400 18.5px/24px var(--x-font);
+  --x-t-sheet:700 18.5px/24px var(--x-font);
+  --x-t-sect:800 19.3px/24px var(--x-font);
+  --x-t-save:700 17.5px/22px var(--x-font);
+  --x-t-head:800 18.25px/22px var(--x-font);
+  --x-t-event:800 18px/20.33px var(--x-font);
+  --x-t-btn:700 16.5px/21px var(--x-font);
+  --x-t-body:400 16px/21px var(--x-font);
+  --x-t-date:700 16px/21px var(--x-font);
+  --x-t-row:700 15.5px/21px var(--x-font);
+  --x-t-note:400 15.5px/21px var(--x-font);
+  --x-t-pill:700 15px/20px var(--x-font);
+  --x-t-desc:400 14.5px/15.67px var(--x-font);
+  --x-t-meta:400 13.5px/19px var(--x-font);
+  --x-t-tag:800 13.5px/19px var(--x-font);
+  --x-t-host:800 14.5px/18px var(--x-font);
+  --x-t-count:400 14px/19px var(--x-font);
+  --x-t-badge:400 12.5px/16px var(--x-font);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--x-font);-webkit-font-smoothing:antialiased;
+  display:flex;justify-content:center;padding:24px}
+.phone{position:relative;flex:none;width:var(--x-w);height:var(--x-h);
+  border-radius:var(--x-r-phone);overflow:hidden;background:var(--x-ground);color:var(--x-ink);transform:translateZ(0);
+  box-shadow:0 0 0 11px #1D191A,0 0 0 12.5px #3A3735,0 24px 60px rgba(29,25,26,.28)}
+.sb{position:absolute;left:0;top:0;width:100%;height:var(--x-status);z-index:6}
+.sb .time{position:absolute;left:0;top:18.2px;width:142.4px;text-align:center;font:var(--x-t-time)}
+.sb .island{position:absolute;top:11px;left:50%;transform:translateX(-50%);
+  width:125px;height:36px;border-radius:20px;background:#000}
+.sb svg{position:absolute;display:block;fill:currentColor}
+/* iOS picks the indicator colour against the wallpaper: measure it per screen */
+.home{position:absolute;left:50%;bottom:8px;transform:translateX(-50%);
+  width:139px;height:5px;border-radius:3px;background:currentColor;z-index:6}
+body{padding:0;background:#FFF;color:var(--x-ink)}
+.sheet{width:478px;height:980px;padding:14px 20px 8px;overflow:hidden}
+h1{font:600 17px/22px var(--x-font);margin-bottom:2px}
+header p{font:400 10.5px/13.5px var(--x-font);color:var(--x-ink-2);margin-bottom:4px}
+h2{font:600 9px/12px var(--x-font);letter-spacing:.8px;text-transform:uppercase;
+  color:var(--x-ink-2);margin:5px 0 3px}
+.grid{column-count:2;column-gap:12px}
+.sw{display:flex;align-items:center;gap:5px;height:10.2px;break-inside:avoid;white-space:nowrap}
+.sw .chip{width:16px;height:9px;flex:none;border-radius:3px;border:1px solid var(--x-border);background-color:#888}
+.sw b{font:600 7.5px/10.5px ui-monospace,Menlo,monospace}
+.sw i{font:400 7.5px/10.5px ui-monospace,Menlo,monospace;color:var(--x-ink-2);font-style:normal}
+.foot{display:flex;gap:28px;align-items:flex-start;margin-top:4px}
+.foot h2{margin-top:0}
+.rad{display:flex;gap:6px;flex-wrap:wrap;width:250px}
+.rb{width:36px;height:22px;background:var(--x-field);border:1px solid var(--x-border)}
+.rad em{display:block;margin-top:2px;font:400 8.5px/11px var(--x-font);
+  color:var(--x-ink-2);font-style:normal;text-align:center}
+.ty{column-count:3;column-gap:12px}
+.tr{break-inside:avoid;border-bottom:1px solid var(--x-border)}
+.tr span{display:block;white-space:nowrap;overflow:hidden;line-height:1}
+.tr em{display:block;font:400 7px/9px ui-monospace,Menlo,monospace;
+  color:var(--x-ink-2);font-style:normal;white-space:nowrap}
+.met{font:400 8px/9.5px ui-monospace,Menlo,monospace;color:var(--x-ink);white-space:nowrap}
+table.ev{width:100%;border-collapse:collapse}
+table.ev td{vertical-align:top;padding:2.5px 6px 2.5px 0;
+  border-bottom:1px solid var(--x-border);font:400 8.5px/11px var(--x-font)}
+td.t,td.v{font-family:ui-monospace,Menlo,monospace;white-space:nowrap}
+td.t{color:#0A60FF}
+td.v{color:var(--x-ink);max-width:150px;overflow:hidden;text-overflow:ellipsis}
+td.e{color:var(--x-ink-2)}</style>
+</head>
+<body>
+<div class="sheet"><header><h1>Evidence 2/5</h1><p>One row per token. A token with no evidence is a guess.</p></header><table class="ev"><tr><td class="t">--x-track-on</td><td class="v">#01BA7B</td><td class="e">11 all nine toggle tracks and 08's two, sampled left of the knob at x 337-350: #01BA7B on every one</td></tr><tr><td class="t">--x-track-off</td><td class="v">#E9E9E9</td><td class="e">12 the New followers track at y 372.33 and 09's location track at 151.00, sampled right of the knob at x 366-380: #E9E9E9</td></tr><tr><td class="t">--x-nav</td><td class="v">linear-gradient(96deg,#FDFCFF 0%,#EFE8FF 38%,#EAE0FF 62%,#EFE7FF 100%)</td><td class="e">02 the nav bar below 768.67 is a pale purple wash, lightest at the top left and deepest just left of centre. APPROXIMATION: four stops fitted to the row at y 790, not the two-axis gradient the capture holds. 02 no longer draws it: X tints the bar while a Space is live, and this canvas’s own timeline has none, so the bar is --x-ground, the white 10 already shows. It still needs the fill 10 does without, because 02’s video thumbnail runs under the bar and something has to cover it</td></tr><tr><td class="t">--x-nav-2</td><td class="v">linear-gradient(180deg,#E7DDFE 0%,#ECE3FF 100%)</td><td class="e">15 carries the same five glyphs over a wash of its own, and this one runs down rather than across. A single column reads it to a couple of levels either way, so it is averaged: rows meaned over x 60-100, clear of the dot and the glyphs, climb evenly from (231.8, 221.5, 254.4) at 775 to (236, 227, 255) at 848 -- one straight line across the whole 83.5pt band rather than a ramp that flattens partway. Solved on that pair, the ends are #E7DDFE and #ECE3FF</td></tr><tr><td class="t">--x-hairline</td><td class="v">#D2D4D6</td><td class="e">01 the ten full-width rules at 306.00, 350.67, 441.33, 486.00, 530.67, 575.33, 620.00, 664.67, 697.00, 741.67 read #D5D7D6, #D1D3D5 and #D1D2DB; one device pixel is 0.333pt, so the drawn rule is 0.33 tall</td></tr><tr><td class="t">--x-hairline-2</td><td class="v">#C6C6C6</td><td class="e">10 the two rules between the news items, at 518.00 and 632.33: both #C6C6C6, and both inset to x 9.00-384.00 where the page's other two, at 375.33 and 768.67, run the full 393 at --x-hairline</td></tr><tr><td class="t">--x-border</td><td class="v">#D0D8DC</td><td class="e">06 both cards' 1pt borders, x 16.00-377.33 at y 234.67 and y 343.67: #D0D8DC at the same weight on both</td></tr><tr><td class="t">--x-ring</td><td class="v">#BAC9D0</td><td class="e">04 an unchecked category ring core #BAC9D1; 07 a row chevron core #BAC8CF; 01 the location caret #BAC7CD and a row chevron #B8C8CD</td></tr><tr><td class="t">--x-ink</td><td class="v">#0F1419</td><td class="e">03 title core #0E1215, 04 a row label #06090D, 07 'Skip for now' #0D1113, 02 the bio #0E1012 and the 'Posts' tab #0D0F11. The same value fills the enabled button: #0E1419 on 03 and 06, #060B13 on 05</td></tr><tr><td class="t">--x-ink-2</td><td class="v">#536471</td><td class="e">03 body #56626C and legal note #55616A, 04 subtitle #5A6771 and placeholder #54636D, 06 card description #57626B, 02 handle #546069, meta #54616A, inactive tab #52606A and action row #58656D</td></tr><tr><td class="t">--x-accent</td><td class="v">#1D9BF0</td><td class="e">01 the three editable values read core #288ECD, 02 'View more' #298DCB, and 02's FAB disc samples #1E9BF0 flat at its centre</td></tr><tr><td class="t">--x-inv</td><td class="v">#FFFFFF</td><td class="e">02 'Movie review' on the card samples #FFFFFF at its brightest 6%, and the card's 'Sam Lee' #FFFEFF</td></tr><tr><td class="t">--x-ink-off</td><td class="v">#C6C7C9</td><td class="e">04 the disabled Next label, ink 180.0-213.67 y 774.67-785.67, on the #88898D pill: #C6C7C9</td></tr><tr><td class="t">--x-save-off</td><td class="v">#C5C5C5</td><td class="e">01 'Save', ink 338.67-377.00 y 88.0-99.0: #C5C5C5, a grey of its own rather than the disabled label on 04</td></tr><tr><td class="t">--x-chip-ink</td><td class="v">#291465</td><td class="e">02 the post's Host label, ink 66.67-97.00 y 454.67-465.67 on #ECE8FF</td></tr><tr><td class="t">--x-r-phone</td><td class="v">52px</td><td class="e">This repo's frame: a circular stand-in for the 55pt continuous display corner, the same in every canvas folder</td></tr><tr><td class="t">--x-r-pill</td><td class="v">26px</td><td class="e">03/04/05/06 the CTA is 52 tall and its ends are semicircles: the fill reaches full width only at y 780, half its height</td></tr></table></div>
+</body>
+</html>
