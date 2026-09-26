@@ -30,6 +30,29 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -m "Update index.json" index.json
           git push
+      # `sp fetch <id>` and `sp duplicate <id>` download a project as
+      # releases/download/archives/<id>.tar.gz, one archive per project, replaced in place.
+      # Only the projects this push changed are rebuilt; a manual run rebuilds them all.
+      - run: |
+          gh release view archives > /dev/null 2>&1 ||
+            gh release create archives --latest=false --title archives \
+              --notes "One archive per project, which sp fetch and sp duplicate download."
+          if [ -n "$BEFORE" ] && git cat-file -e "$BEFORE" 2> /dev/null; then
+            ids=$(git diff --name-only "$BEFORE" HEAD -- projects | cut -d/ -f2 | sort -u)
+          else
+            ids=$(ls projects)
+          fi
+          for id in $ids; do
+            if [ -d "projects/$id" ]; then
+              tar czf "$id.tar.gz" -C projects "$id"
+              gh release upload archives "$id.tar.gz" --clobber
+            else
+              gh release delete-asset archives "$id.tar.gz" --yes || true # never uploaded
+            fi
+          done
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BEFORE: ${{ github.event.before }}
       # The site builds each project's page from this repo when the canvas deploys, which a
       # push here does not do on its own: this starts that build, so a merged project opens
       # on the web within minutes. The hook is the super-prototyping Pages project's.
