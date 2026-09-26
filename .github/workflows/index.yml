@@ -30,3 +30,9 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -m "Update index.json" index.json
           git push
+      # The site builds each project's page from this repo when the canvas deploys, which a
+      # push here does not do on its own: this starts that build, so a merged project opens
+      # on the web within minutes. The hook is the super-prototyping Pages project's.
+      - run: curl -fsS -X POST "$HOOK" > /dev/null
+        env:
+          HOOK: ${{ secrets.PAGES_DEPLOY_HOOK }}
