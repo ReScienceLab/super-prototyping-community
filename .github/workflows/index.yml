@@ -36,3 +36,33 @@ jobs:
       - run: curl -fsS -X POST "$HOOK" > /dev/null
         env:
           HOOK: ${{ secrets.PAGES_DEPLOY_HOOK }}
+      # `sp fetch <id>` and `sp duplicate <id>` download a project as
+      # releases/download/archives/<id>.tar.gz, one archive per project, replaced in place.
+      # After the deploy hook, so a failed upload cannot keep a merged project off the site.
+      # The release's `archived-at` holds the commit its archives are of, and each run rebuilds
+      # what changed since: a run that concurrency cancelled leaves nothing out, which
+      # github.event.before would. With no such commit, it rebuilds them all, and drops the
+      # archive of any project that is gone.
+      - run: |
+          gh release view archives > /dev/null 2>&1 ||
+            gh release create archives --latest=false --title archives \
+              --notes "One archive per project, which sp fetch and sp duplicate download."
+          have=$(gh release view archives --json assets --jq '.assets[].name')
+          at=$(gh release download archives -p archived-at -O - 2> /dev/null || true)
+          if [ -n "$at" ] && git cat-file -e "$at" 2> /dev/null; then
+            ids=$(git diff --name-only "$at" HEAD -- projects | cut -d/ -f2 | sort -u)
+          else
+            ids=$( (ls projects; echo "$have" | sed -n 's/\.tar\.gz$//p') | sort -u)
+          fi
+          for id in $ids; do
+            if [ -d "projects/$id" ]; then
+              tar czf "$id.tar.gz" -C projects "$id"
+              gh release upload archives "$id.tar.gz" --clobber
+            elif echo "$have" | grep -qx "$id.tar.gz"; then
+              gh release delete-asset archives "$id.tar.gz" --yes
+            fi
+          done
+          git rev-parse HEAD > archived-at
+          gh release upload archives archived-at --clobber
+        env:
+          GH_TOKEN: ${{ github.token }}
